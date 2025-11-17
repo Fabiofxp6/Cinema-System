@@ -51,9 +51,15 @@ def menu_adm():
             pause()
 
         elif op == '3':
+            print("Escolha o filme para a sessão:")
+            for f in listar_filmes():
+                print(f)
+            print("Escolha a sala para a sessão:")
+            for s in listar_salas():
+                print(s)
             id_filme = int(input("ID do filme: "))
             id_sala = int(input("ID da sala: "))
-            data_hora = input("Data e hora (YYYY-MM-DD HH:MM:SS): ")
+            data_hora = input("Data e hora (DD-MM-YYYY HH:MM:SS): ")
             criar_sessao(id_filme, id_sala, data_hora)
             print("Sessão criada.")
             pause()
@@ -83,6 +89,8 @@ def menu_adm():
             pause()
 
         elif op == '9':
+            print("Clientes cadastrados:")
+            verificar_clientes()
             id_c = int(input("Digite o ID do cliente a ser removido: "))
             apagar_cliente(id_c)
             pause()

@@ -32,10 +32,18 @@ def menu_cliente(cliente):
 
         elif op == '3':
             try:
+                print("Escolha a sessão para comprar o ingresso:")
+                for s in listar_sessoes():
+                    print(s)
                 id_sessao = int(input("ID da sessão: "))
                 assento = input("Assento (ex: A1): ")
-                valor = float(input("Valor pago (ex: 25.00): "))
-                tipo = input("Tipo (inteira/meia): ")
+                valor = float(input("Inteira: R$44.00 / Meia: R$22.00\nValor do ingresso: R$"))
+                if valor == 44.00:
+                    tipo = "inteira"
+                elif valor == 22.00:
+                    tipo = "meia"
+                else:
+                    raise ValueError("Valor inválido para ingresso.")
                 vender_ingresso(id_sessao, cliente['id_cliente'], assento, valor, tipo)
                 print("🎟️ Ingresso comprado com sucesso!")
             except Exception as e:
@@ -47,8 +55,17 @@ def menu_cliente(cliente):
             if not ingressos:
                 print("Nenhum ingresso encontrado.")
             else:
-                for i in ingressos:
-                    print(i)
+               for i in ingressos:
+                print("INGRESSO")
+                print("ID:", i['id_ingresso'])
+                print("Título:", i['titulo'])
+                print("Data/Hora:", i['data_hora'])
+                print("Assento:", i['assento'])
+                print("Valor Pago:", i['valor_pago'])
+                print("Tipo:", i['tipo'])
+                print()
+
+
             pause()
 
         elif op == '0':
