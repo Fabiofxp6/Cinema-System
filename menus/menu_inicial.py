@@ -1,4 +1,5 @@
 import bcrypt
+import pwinput
 from menus.menu_cliente import menu_cliente
 from services.cliente_services import buscar_cliente_por_email
 import os
@@ -53,7 +54,7 @@ def cliente_login():
     limpar_tela()
     print("=== LOGIN CLIENTE ===")
     email = input("Email: ")
-    senha = input("Senha: ")
+    senha = pwinput.pwinput(prompt="Digite sua senha: ")
 
     user = buscar_cliente_por_email(email)
     if not user:

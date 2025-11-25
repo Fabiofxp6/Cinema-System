@@ -53,3 +53,45 @@ def deletar_filme(id_filme: int) -> bool:
         return removed is not None
     finally:
         con.close()
+
+def atualizar_filme(id_filme: int, titulo: Optional[str] = None, duracao: Optional[int] = None,
+    classificacao_indicativa: Optional[str] = None, genero: Optional[str] = None) -> bool:
+    con = criar_conexao()
+    try:
+        campos = []
+        valores = []
+
+        if titulo:
+            campos.append("titulo = %s")
+            valores.append(titulo)
+
+        if duracao:
+            campos.append("duracao = %s")
+            valores.append(duracao)
+
+        if classificacao_indicativa:
+            campos.append("classificacao_indicativa = %s")
+            valores.append(classificacao_indicativa)
+
+        if genero:
+            campos.append("genero = %s")
+            valores.append(genero)
+
+        # Nada para atualizar
+        if not campos:
+            return False
+
+        valores.append(id_filme)
+
+        sql = f"UPDATE filme SET {', '.join(campos)} WHERE id_filme = %s RETURNING id_filme"
+
+        with con.cursor() as cur:
+            cur.execute(sql, valores)
+            atualizado = cur.fetchone()
+
+        con.commit()
+        return atualizado is not None
+
+    finally:
+        con.close()
+
